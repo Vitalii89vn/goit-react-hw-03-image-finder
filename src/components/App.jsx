@@ -1,16 +1,8 @@
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
+    <div>
+      Hello!!
+      key = '32359638-7443e20de0ded3dc69cc0faa3'
     </div>
   );
 };
