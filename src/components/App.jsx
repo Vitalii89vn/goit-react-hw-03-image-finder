@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { Button } from "./Button/Button";
 import { SearchBar } from "./Searchbar/Searchbar";
 import { ImageGallery} from "components/ImageGallery/ImageGallery";
 
@@ -21,7 +20,7 @@ export class App extends Component {
       <div>
         <SearchBar onSubmit={handleFormSubmit} />
         <ImageGallery query={searchQuery} />
-        <Button />
+        
       
         
       </div>
@@ -29,5 +28,3 @@ export class App extends Component {
   }
 };
   
-/* Hello!!
-      key =  */

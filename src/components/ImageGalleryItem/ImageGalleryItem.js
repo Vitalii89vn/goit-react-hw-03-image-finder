@@ -1,8 +1,14 @@
+import PropTypes from 'prop-types';
+import css from './ImageGalleryItem.module.css'
 
-export const ImageGalleryItem = () => {
+export const ImageGalleryItem = ({image, alt}) => {
     return (
-        <li className="gallery-item">
-            <img src="https://image.flaticon.com/icons/svg/149/149852.svg" alt="hello" />
+    <li className={css.galleryItem}>
+            <img src={image} alt={alt} width='100' height='100' loading="lazy"/>
         </li>
     )
 };
+ImageGalleryItem.propTypes = {
+    image: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired
+}
