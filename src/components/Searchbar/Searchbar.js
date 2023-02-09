@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ReactComponent as IconSearch } from '../../icons/iconSearch.svg'
+import { GoSearch } from 'react-icons/go'
 
  
 export class SearchBar extends Component {
@@ -9,19 +9,25 @@ export class SearchBar extends Component {
     }
 
     handleSearch = e => {
-        this.setState({ searchQuery: e.currentTarget.value })
+        this.setState({ searchQuery: e.currentTarget.value.toLowerCase() })
     };
+
     handleSubmit = e => {
         e.preventDefault();
-        console.log("submit stRT")
-}
+        if (this.state.searchQuery.trim() === ''){
+            return;
+        };
+        this.props.onSubmit(this.state.searchQuery);
+        this.setState({searchQuery: ''})
+    };
+
 
     render() {
         return (
             <header className="searchbar">
                 <form className="form" onSubmit={this.handleSubmit}>
                     <button type="submit" className="button" aria-label='search-button'>
-                        <IconSearch width='28' height='28' fill='#1a1212' />
+                        <GoSearch width='28' height='28' fill='#1a1212' />
                     </button>
 
                     <input
@@ -29,6 +35,7 @@ export class SearchBar extends Component {
                         type="text"
                         autoComplete="off"
                         autoFocus
+                        value={this.state.searchQuery}
                         placeholder="Search images and photos"
                         onChange={this.handleSearch}
                     />
