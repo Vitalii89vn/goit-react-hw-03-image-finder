@@ -5,7 +5,8 @@ import { GoSearch } from 'react-icons/go'
 export class SearchBar extends Component {
 
     state = {
-        searchQuery: ''
+        searchQuery: '',
+        page: 1
     }
 
     handleSearch = e => {
