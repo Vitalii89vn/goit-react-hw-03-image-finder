@@ -1,8 +1,9 @@
 import { Component } from "react";
 import { Button } from "components/Button/Button";
 import { ImageGalleryItem } from "components/ImageGalleryItem/ImageGalleryItem";
+import { Loader } from "components/Loader/Loader";
+
 import PropTypes from 'prop-types';
-import { RotatingLines } from  'react-loader-spinner'
 
 
 
@@ -15,7 +16,8 @@ export class ImageGallery extends Component {
         error: null,
         // page: 1,
         status: 'idle',
-        card: []
+        card: [],
+          showModal: false,
     };
 
     static propTypes = {
@@ -33,11 +35,11 @@ export class ImageGallery extends Component {
         const API_KEY = '32359638-7443e20de0ded3dc69cc0faa3';
         const BAZE_URL = 'https://pixabay.com/api/'
      
-        if (prevQuery !== nextQuery || prevpage !== nextpage) {
+        if (prevQuery !== nextQuery || prevpage !== nextpage ) {
             this.setState({status: 'pending'})
 
             setTimeout(() => {
-                fetch(`${BAZE_URL}?q=${nextQuery}&page=${nextpage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=4`)
+                fetch(`${BAZE_URL}?q=${nextQuery}&page=${nextpage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=3`)
                 .then(response => {
                     if (response.ok) {
                         return response.json()
@@ -47,42 +49,36 @@ export class ImageGallery extends Component {
                 .then(images => (this.setState(prevState =>({ images, status: "resolved", card: [...prevState.card, ...images.hits ] }) )))
                 .catch(error => this.setState({ error, status: "rejected" }))
             }, 1000);
-            
         };
-          
-   
-            
-       
     };
 
+      toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));};
+ 
     render() {
         const {  status, error, images, card } = this.state;
         const { page } = this.props;
-        
-      
-            if (status === "idle") {
+
+        if (status === "idle") {
                 return <div></div>
         };
             if (status === "pending") {
-                return <div><h2>Loading images....</h2>
-                    <RotatingLines
-                        strokeColor="red"
-                        strokeWidth="5"
-                        animationDuration="1"
-                        width="96"
-                        visible={true}
-                        /></div>
+                return <Loader />
         };
         if (status === "resolved") {
             return (
                 <div>
                     <ul className="gallery">
-                        {images && card.map(({ id, webformatURL, tags }) => (
-                            <ImageGalleryItem key={id} image={webformatURL} alt={tags} />
+                        {images && card.map(({ id, webformatURL, tags, largeImageURL }) => (
+                            <ImageGalleryItem key={id} image={webformatURL} alt={tags} imageLarge={largeImageURL} isOpenModal={() => this.toggleModal()} showModal={ this.state.showModal} />
                         ))}
                     </ul>
                     {images.totalHits !== 0 && (images.totalHits / page / 12 >= 1) && <Button onClick={this.props.onClick} />}
+                  
                 </div>
+                
             );
         };
         if (status === "rejected") {

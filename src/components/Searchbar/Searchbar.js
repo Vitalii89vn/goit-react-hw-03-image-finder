@@ -6,7 +6,7 @@ export class SearchBar extends Component {
 
     state = {
         searchQuery: '',
-        page: 1
+        page:1
     }
 
     handleSearch = e => {
@@ -19,7 +19,7 @@ export class SearchBar extends Component {
             return;
         };
         this.props.onSubmit(this.state.searchQuery);
-        this.setState({searchQuery: ''})
+        this.setState({searchQuery: '', page:1})
     };
 
 
