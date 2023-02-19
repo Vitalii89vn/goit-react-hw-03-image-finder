@@ -29,7 +29,6 @@ export class SearchBar extends Component {
         this.setState({ searchQuery: '', page: 1 })
     };
 
-
     render() {
         const { handleSearch, handleSubmit } = this;
         const { searchQuery } = this.state;

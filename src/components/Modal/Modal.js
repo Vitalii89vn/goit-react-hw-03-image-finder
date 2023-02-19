@@ -11,10 +11,10 @@ export class Modal extends Component {
     showModal: PropTypes.func.isRequired,
   };
   
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown )
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown )
   };
-     componentWillUnmount() {
+  componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
   };
 

@@ -23,12 +23,13 @@ export class ImageGalleryItem extends Component {
         const { image, alt, imageLarge } = this.props;
         const { showModal } = this.state;
         const { toggleModal } = this;
+
         return (
             <li className={css.ImageGalleryItem} >
                 {!showModal ?
-                    <img src={image} alt={alt} onClick={toggleModal} className={ css.ImageGalleryItem_image} />
-                    :
-                    <Modal showModal={toggleModal}> <img src={imageLarge} alt={alt} /> </Modal>}
+                <img src={image} alt={alt} onClick={toggleModal} className={ css.ImageGalleryItem_image} />
+                :
+                 <Modal showModal={toggleModal}> <img src={imageLarge} alt={alt} /> </Modal>}
             </li>
         );
     }
