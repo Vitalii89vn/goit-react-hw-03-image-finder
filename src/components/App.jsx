@@ -2,8 +2,6 @@ import { Component } from "react";
 import { SearchBar } from "./Searchbar/Searchbar";
 import { ImageGallery} from "components/ImageGallery/ImageGallery";
 
-
-
 export class App extends Component {
   state = {
     searchQuery: '',
@@ -14,9 +12,6 @@ export class App extends Component {
   handleFormSubmit = searchQuery => {
     this.setState({ searchQuery })
   };
-
-
-  
   onClickLoadMore = () => {
     this.setState(prevState => ({
       page: prevState.page + 1
@@ -24,16 +19,13 @@ export class App extends Component {
   }
   render() {
     const { searchQuery, page } = this.state;
-    const { handleFormSubmit } = this;
+    const { handleFormSubmit, onClickLoadMore } = this;
     return (
       <div>
-        <SearchBar onSubmit={handleFormSubmit}/>
-        <ImageGallery query={searchQuery} page={page} onClick={() => this.onClickLoadMore()} onClose={() => this.toggleModal} />
-        
-      
-        
+        <SearchBar onSubmit={handleFormSubmit} />
+        <ImageGallery query={searchQuery} page={page} onClick={() => onClickLoadMore()} />
       </div>
     )
   }
-};
+}
   

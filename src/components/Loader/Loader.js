@@ -1,7 +1,9 @@
-import { RotatingLines } from  'react-loader-spinner'
+import { RotatingLines } from 'react-loader-spinner';
+import css from './Loader.module.css'
+
 export const Loader = () => {
     return (
-        <div>
+        <div className={css.Loader}>
             <h2>Loading images....</h2>
             <RotatingLines
                 strokeColor="red"
