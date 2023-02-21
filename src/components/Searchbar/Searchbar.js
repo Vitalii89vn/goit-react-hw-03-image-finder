@@ -7,8 +7,7 @@ export class SearchBar extends Component {
 
     state = {
         searchQuery: '',
-        page: 1,
-    };
+         };
 
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
@@ -26,7 +25,7 @@ export class SearchBar extends Component {
             return;
         };
         this.props.onSubmit(searchQuery);
-        this.setState({ searchQuery: '', page: 1 })
+        this.setState({ searchQuery: ''})
     };
 
     render() {

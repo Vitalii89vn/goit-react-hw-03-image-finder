@@ -5,25 +5,20 @@ import { ImageGallery} from "components/ImageGallery/ImageGallery";
 export class App extends Component {
   state = {
     searchQuery: '',
-    page: 1,
-  
+    
   };
 
   handleFormSubmit = searchQuery => {
     this.setState({ searchQuery })
   };
-  onClickLoadMore = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1
-    }))
-  }
+
   render() {
-    const { searchQuery, page } = this.state;
-    const { handleFormSubmit, onClickLoadMore } = this;
+    const { searchQuery, } = this.state;
+    const { handleFormSubmit, } = this;
     return (
       <div>
         <SearchBar onSubmit={handleFormSubmit} />
-        <ImageGallery query={searchQuery} page={page} onClick={() => onClickLoadMore()} />
+        <ImageGallery query={searchQuery}  />
       </div>
     )
   }
