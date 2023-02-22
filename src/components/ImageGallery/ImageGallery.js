@@ -13,8 +13,8 @@ export class ImageGallery extends Component {
         images: null,
         error: null,
         status: 'idle',
-        card: [],
-        page:1
+        card: null,
+        page: 1,
       };
 
     static propTypes = {
@@ -29,19 +29,20 @@ export class ImageGallery extends Component {
         const prevpage = prevState.page;
         const nextpage = this.state.page;
        
-        if (prevQuery !== nextQuery) (this.setState({ card: [], page: 1  }))
-
-        if (prevQuery !== nextQuery || prevpage !== nextpage ) {
-            this.setState({status: 'pending'})
-
-                     FetchPixabay(nextQuery, nextpage)
+        if (prevQuery !== nextQuery) {this.setState({ page: 1, card: [] }) };
+        
+        if (prevQuery !== nextQuery || prevpage !== nextpage) {
+            console.log(prevQuery !== nextQuery)
+                    FetchPixabay(nextQuery, nextpage)
                         .then(images => {
                             if (images.total !== 0) {
                                 this.setState(prevState => ({
+                                    card: [...prevState.card, ...images.hits],
                                     images,
                                     status: "resolved",
-                                    card:  [...prevState.card , ...images.hits]
-                                }))
+                                }));
+                                console.log([...prevState.card]);
+                                console.log([...images.hits])
                             }
                         else {
                             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
@@ -50,6 +51,7 @@ export class ImageGallery extends Component {
                     })
                         .catch(error => this.setState({ error, status: "rejected" }))
         }
+         
     };
 
     onClickLoadMore = () => {
@@ -67,13 +69,15 @@ export class ImageGallery extends Component {
         };
             if (status === "pending") {
                 return <Loader />
+
         };
-        if (status === "resolved") {
-            return (
+    
+        if (status === "rejected") {
+            return <h2>{error}</h2>;}
+        return (
                 <div>
                     <ul className={css.ImageGallery}>
-                        {
-                            images.total !== 0 &&
+                        {   images.total !== 0 &&
                             card.map(({ id, webformatURL, tags, largeImageURL }) => (
                             <ImageGalleryItem
                                 key={id}
@@ -85,11 +89,7 @@ export class ImageGallery extends Component {
                     </ul>
                     {images.total !== 0 && (images.total / page / 12 >= 1) && <Button onClick={() => onClickLoadMore()} />}
                 </div>  
-            );
-        };
-        if (status === "rejected") {
-            return <h2>{error}</h2>;
-        };    
-        
-    }
+            );   
+        }; 
+    
 };
