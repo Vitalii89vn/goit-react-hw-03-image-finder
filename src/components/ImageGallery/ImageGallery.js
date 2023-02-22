@@ -32,7 +32,7 @@ export class ImageGallery extends Component {
         if (prevQuery !== nextQuery) {this.setState({ page: 1, card: [] }) };
         
         if (prevQuery !== nextQuery || prevpage !== nextpage) {
-            console.log(prevQuery !== nextQuery)
+          
                     FetchPixabay(nextQuery, nextpage)
                         .then(images => {
                             if (images.total !== 0) {
@@ -41,8 +41,7 @@ export class ImageGallery extends Component {
                                     images,
                                     status: "resolved",
                                 }));
-                                console.log([...prevState.card]);
-                                console.log([...images.hits])
+                                
                             }
                         else {
                             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
