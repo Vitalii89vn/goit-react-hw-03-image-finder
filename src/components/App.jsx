@@ -60,7 +60,7 @@ export class App extends Component {
         <SearchBar onSubmit={handleFormSubmit} />
         { loading && <Loader />}
         {images.total !== 0 && <ImageGallery card={card} />}
-        {images.total !== 0 && (images.total / page / 12 >= 1) && <Button onClick={() => onClickLoadMore()} />}
+        {!loading && images.total !== 0 && (images.total / page / 12 >= 1) && <Button onClick={() => onClickLoadMore()} />}
         {images.total === 0 && error.message}
       </div>
     )
