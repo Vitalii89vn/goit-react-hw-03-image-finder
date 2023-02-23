@@ -7,7 +7,7 @@ export class SearchBar extends Component {
 
     state = {
         searchQuery: '',
-         };
+    };
 
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
