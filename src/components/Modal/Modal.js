@@ -12,7 +12,7 @@ export class Modal extends Component {
   };
   
   componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown )
+    window.addEventListener('keydown', this.handleKeyDown)
   };
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
@@ -20,7 +20,7 @@ export class Modal extends Component {
 
   handleKeyDown = e => {
     if (e.code === "Escape") {
-        this.props.showModal();
+      this.props.showModal();
     }
   };
   handleBackdropClick = e => {
@@ -28,16 +28,13 @@ export class Modal extends Component {
       this.props.showModal();
     }
   };
-    render() {
-      return createPortal(
-        <div className={css.overlay} onClick={this.handleBackdropClick}>
-          <div className={css.modal}>{this.props.children}
-          </div>
-        </div>,
-        modalRoot
-      )
+  render() {
+    return createPortal(
+      <div className={css.overlay} onClick={this.handleBackdropClick}>
+        <div className={css.modal}>{this.props.children}
+        </div>
+      </div>,
+      modalRoot
+    )
   };
-
-
-
 }

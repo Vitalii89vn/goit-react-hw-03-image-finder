@@ -27,8 +27,8 @@ export class App extends Component {
         
         if (prevQuery !== nextQuery || prevpage !== nextpage) {
           this.setState({loading: true })
-                          
-          FetchPixabay(nextQuery, nextpage)
+   setTimeout(() => {
+           FetchPixabay(nextQuery, nextpage)
             .then(images => {
               if (images.total !== 0) {
                 this.setState(prevState => ({
@@ -42,7 +42,7 @@ export class App extends Component {
             })
             .catch(error => this.setState({ error }))
             .finally(this.setState({ loading: false }))       
-    } 
+      }, 1000);}
   };
   handleFormSubmit = searchQuery => {
     this.setState({ searchQuery, page: 1 })
@@ -58,10 +58,10 @@ export class App extends Component {
     return (
       <div>
         <SearchBar onSubmit={handleFormSubmit} />
-        { loading && <Loader />}
-        {images.total !== 0 && <ImageGallery card={card} />}
-        {!loading && images.total !== 0 && (images.total / page / 12 >= 1) && <Button onClick={() => onClickLoadMore()} />}
-        {images.total === 0 && error.message}
+        { images.total !== 0 && <ImageGallery card={card} /> }
+        { loading && <Loader /> }
+        { !loading && images.total !== 0 && (images.total / page / 12 >= 1) && <Button onClick={() => onClickLoadMore()} /> }
+        { images.total === 0 && error.message }
       </div>
     )
   }
