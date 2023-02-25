@@ -27,7 +27,7 @@ export class App extends Component {
         
         if (prevQuery !== nextQuery || prevpage !== nextpage) {
           this.setState({loading: true })
-   setTimeout(() => {
+  
            FetchPixabay(nextQuery, nextpage)
             .then(images => {
               if (images.total !== 0) {
@@ -41,8 +41,8 @@ export class App extends Component {
               };
             })
             .catch(error => this.setState({ error }))
-            .finally(this.setState({ loading: false }))       
-      }, 1000);}
+            .finally(() => this.setState({ loading: false }))       
+          }
   };
   handleFormSubmit = searchQuery => {
     this.setState({ searchQuery, page: 1 })
